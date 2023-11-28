@@ -6,21 +6,9 @@ import { transformNamesSet } from "../name/nameSet.js";
 
 export const transformAttributesNamesPerPlatform: CalledTransformerFunction<{ [key: string]: any }> = (token, args) => {
   const tokenNameOutputByPlatform = args.options.platforms.reduce((acc, platform) => {
-    let file;
-    let platformArgs;
+    const platformArgs = { ...args, options: { ...args.options, platform } };
 
-    if ("platform" in args) {
-      file = args.file;
-      platformArgs = args.platform;
-    } else {
-      file = args.files[0];
-      platformArgs = args;
-    }
-
-    acc[platform] = transformNamesSet(token, {
-      ...platformArgs,
-      files: [{ ...file, format: platform }],
-    });
+    acc[platform] = transformNamesSet(token, platformArgs);
 
     return acc;
   }, {} as Record<PlatformUnion, string>);

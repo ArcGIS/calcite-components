@@ -1,13 +1,8 @@
-import styleDictionary, { Core as StyleDictionary } from "style-dictionary";
+import { Core as StyleDictionary } from "style-dictionary";
 import { CalledFormatterFunction, FormatterConfig } from "../../../types/styleDictionary/formatterArguments";
 
 export const formatJsPlatform: CalledFormatterFunction = (args) => {
-  return (
-    styleDictionary.formatHelpers.fileHeader({ file: args.file }) +
-    "export default " +
-    JSON.stringify(args.dictionary.properties, null, 2) +
-    ";\n"
-  );
+  return JSON.stringify(args.dictionary.properties, null, 2);
 };
 
 export const registerFormatterJs = (sd: StyleDictionary): void => {

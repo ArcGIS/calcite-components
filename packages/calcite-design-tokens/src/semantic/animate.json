@@ -1,0 +1,104 @@
+{
+  "semantic": {
+    "animate": {
+      "duration": {
+        "default": {
+          "value": {
+            "default": "{core.animate.duration.1}",
+            "reduce-motion": "{core.animate.duration.01}"
+          },
+          "type": "timing"
+        }
+      },
+      "timing": {
+        "default": {
+          "type": "timing",
+          "value": "{semantic.animate.duration.default} * .15"
+        },
+        "fast": {
+          "type": "timing",
+          "value": "{semantic.animate.duration.default} * .1"
+        },
+        "medium": {
+          "type": "timing",
+          "value": "{semantic.animate.duration.default} * .2"
+        },
+        "slow": {
+          "type": "timing",
+          "value": "{semantic.animate.duration.default} * .3"
+        }
+      },
+      "in": {
+        "type": "animation",
+        "value": {
+          "trigger": "{core.animate.trigger.all}",
+          "duration": "{semantic.animate.timing.default}",
+          "easing": "{core.animate.easing.ease}",
+          "property": {
+            "opacity": "{core.animate.property.opacity.default}"
+          }
+        }
+      }
+    },
+    "inDown": {
+      "type": "animation",
+      "value": {
+        "trigger": "{core.animate.trigger.all}",
+        "duration": "{semantic.animate.timing.default}",
+        "easing": "{core.animate.easing.ease}",
+        "property": {
+          "opacity": "{core.animate.property.opacity.default}",
+          "translate": "{core.animate.property.translate.down}"
+        }
+      }
+    },
+    "inUp": {
+      "type": "animation",
+      "value": {
+        "trigger": "{core.animate.trigger.all}",
+        "duration": "{semantic.animate.timing.default}",
+        "easing": "{core.animate.easing.ease}",
+        "property": {
+          "opacity": "{core.animate.property.opacity.default}",
+          "translate": "{core.animate.property.translate.up}"
+        }
+      }
+    },
+    "inRight": {
+      "type": "animation",
+      "value": {
+        "trigger": "{core.animate.trigger.all}",
+        "duration": "{semantic.animate.timing.default}",
+        "easing": "{core.animate.easing.ease}",
+        "property": {
+          "opacity": "{core.animate.property.opacity.default}",
+          "translate": "{core.animate.property.translate.right}"
+        }
+      }
+    },
+    "inLeft": {
+      "type": "animation",
+      "value": {
+        "trigger": "{core.animate.trigger.all}",
+        "duration": "{semantic.animate.timing.default}",
+        "easing": "{core.animate.easing.ease}",
+        "property": {
+          "opacity": "{core.animate.property.opacity.default}",
+          "translate": "{core.animate.property.translate.left}"
+        }
+      }
+    },
+    "inScale": {
+      "type": "animation",
+      "value": {
+        "trigger": "{core.animate.trigger.all}",
+        "duration": "{semantic.animate.timing.default}",
+        "easing": "{core.animate.easing.ease}",
+        "property": {
+          "opacity": "{core.animate.property.opacity.default}",
+          "scale": "{core.animate.property.scale.default}"
+        }
+      }
+    }
+  }
+}

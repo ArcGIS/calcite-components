@@ -1,0 +1,118 @@
+{
+  "core": {
+    "animate": {
+      "duration": {
+        "1": {
+          "value": 1,
+          "type": "timing"
+        },
+        "01": {
+          "value": 0.01,
+          "type": "timing"
+        }
+      },
+      "trigger": {
+        "all": {
+          "value": "*",
+          "type": "trigger"
+        }
+      },
+      "easing": {
+        "ease": {
+          "value": "ease",
+          "type": "animationEasing"
+        }
+      },
+      "property": {
+        "opacity": {
+          "default": {
+            "value": {
+              "t0": 0,
+              "t100": 1
+            },
+            "type": "animateProperty"
+          }
+        },
+        "translate": {
+          "down": {
+            "value": {
+              "t0": {
+                "x": 0,
+                "y": "-5px",
+                "z": 0
+              },
+              "t100": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "type": "animateProperty"
+          },
+          "up": {
+            "value": {
+              "t0": {
+                "x": 0,
+                "y": "5px",
+                "z": 0
+              },
+              "t100": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "type": "animateProperty"
+          },
+          "right": {
+            "value": {
+              "t0": {
+                "x": "-5px",
+                "y": 0,
+                "z": 0
+              },
+              "t100": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "type": "animateProperty"
+          },
+          "left": {
+            "value": {
+              "t0": {
+                "x": "5px",
+                "y": 0,
+                "z": 0
+              },
+              "t100": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "type": "animateProperty"
+          }
+        },
+        "scale": {
+          "default": {
+            "value": {
+              "t0": {
+                "x": 0.95,
+                "y": 0.95,
+                "z": 1
+              },
+              "t100": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+              }
+            },
+            "type": "animateProperty"
+          }
+        }
+      }
+    }
+  }
+}

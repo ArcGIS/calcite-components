@@ -113,7 +113,7 @@ calcite-button {
   --calcite-fab-background-color: var(--calcite-color-foreground-1);
 }
 :host([appearance="outline-fill"]:hover),
-:host([appearance="outline-fill"]:hover) {
+:host([appearance="outline-fill"]:focus) {
   --calcite-fab-background-color: var(--calcite-color-foreground-1);
 }
 :host([appearance="outline-fill"]:active) {

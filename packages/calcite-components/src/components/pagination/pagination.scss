@@ -1,47 +1,43 @@
+/**
+ * CSS Custom Properties
+ *
+ * These properties can be overridden using the component's tag as selector.
+ *
+ * @prop --calcite-pagination-arrow-background-color: defines the background color of an arrow button in the component.
+ * @prop --calcite-pagination-arrow-background-color-hover: defines the background color of an arrow button, when it is hovered in the component.
+ * @prop --calcite-pagination-arrow-color: defines the color of the icon in the arrow button in the component.
+ * @prop --calcite-pagination-arrow-color-hover: defines the color of the icon in the arrow button, when it is hovered in the component.
+ * @prop --calcite-pagination-border-color: defines the border color of items in the component.
+ * @prop --calcite-pagination-border-color-focus: defines the border color of items, when they are active or focused in the component.
+ * @prop --calcite-pagination-border-color-hover: defines the border color of items, when they are hovered in the component.
+ * @prop --calcite-pagination-item-background-color: defines the background color of a page item in the component.
+ * @prop --calcite-pagination-item-text-color: defines the text color of a page item in the component.
+ * @prop --calcite-pagination-item-text-color-selected: defines the text color of a page item when it hovered, focused, or selected in the component.
+ *
+ */
+
 :host {
-  @apply flex;
+  --calcite-pagination-arrow-background-color-hover: var(--calcite-color-foreground-2);
+  --calcite-pagination-arrow-background-color: transparent;
+  --calcite-pagination-arrow-color-hover: var(--calcite-color-brand);
+  --calcite-pagination-arrow-color: var(--calcite-color-text-3);
+  --calcite-pagination-border-color-focus: var(--calcite-color-brand);
+  --calcite-pagination-border-color-hover: var(--calcite-color-border-2);
+  --calcite-pagination-border-color: transparent;
+  --calcite-pagination-item-background-color: transparent;
+  --calcite-pagination-item-text-color-selected: var(--calcite-color-text-1);
+  --calcite-pagination-item-text-color: var(--calcite-color-text-3);
+
+  --calcite-internal-pagination-outline-color: transparent;
+
+  display: flex;
   writing-mode: horizontal-tb;
 }
 
-:host([scale="s"]) {
-  & .chevron,
-  & .page,
-  & .ellipsis {
-    @apply text-n2h h-6 px-1;
-    min-inline-size: theme("width.6");
-  }
-}
-
-:host([scale="m"]) {
-  & .chevron,
-  & .page,
-  & .ellipsis {
-    @apply text-n1h h-8 px-2;
-    min-inline-size: theme("width.8");
-  }
-}
-
-:host([scale="l"]) {
-  & .chevron,
-  & .page,
-  & .ellipsis {
-    @apply text-0h h-11;
-    min-inline-size: theme("width.11");
-  }
-
-  & .chevron {
-    @apply px-2.5;
-  }
-
-  & .page,
-  & .ellipsis {
-    @apply px-3;
-  }
-}
-
 // focus styles
-:host button {
+button {
   @apply focus-base;
+
   &:focus {
     @apply focus-inset;
   }
@@ -52,52 +48,165 @@
 .ellipsis {
   @apply p-0
     m-0
-    text-0h
-    text-color-3
     font-inherit
     box-border
     flex
     items-center
-    border-none
-    border-opacity-0
     justify-center
-    align-baseline
-    bg-transparent;
+    align-baseline;
+  block-size: var(--calcite-internal-pagination-block-size);
+  font-size: var(--calcite-internal-pagination-font-size);
+  line-height: var(--calcite-internal-pagination-line-height);
+  min-inline-size: var(--calcite-internal-pagination-inline-size);
+  border-color: var(--calcite-pagination-border-color);
 }
 
 .chevron,
 .page {
   @apply cursor-pointer;
-  border-block: 2px solid transparent;
-
   &:hover {
-    @apply text-color-1 transition-default;
+    @apply transition-default;
   }
 }
 
+.page,
+.ellipsis {
+  padding-inline: var(--calcite-internal-pagination-spacing-inline);
+  color: var(--calcite-pagination-item-text-color);
+}
+
 .page {
+  background-color: var(--calcite-pagination-item-background-color);
+  border-block-width: 2px;
+  border-inline-width: 0;
+  border-block-start-color: transparent;
+
   &:hover {
-    @apply border-b-color-2;
+    --calcite-pagination-border-color: var(--calcite-pagination-border-color-hover);
+    --calcite-pagination-item-text-color: var(--calcite-pagination-item-text-color-selected);
   }
+  &:active,
+  &:focus,
   &.selected {
-    @apply text-color-1 border-b-color-brand font-medium;
+    --calcite-pagination-item-text-color: var(--calcite-pagination-item-text-color-selected);
+  }
+  &:active,
+  &:focus,
+  &.selected {
+    --calcite-pagination-border-color: var(--calcite-pagination-border-color-focus);
+  }
+
+  &.selected {
+    @apply font-medium;
   }
 }
 
 .chevron {
+  background-color: var(--calcite-pagination-arrow-background-color);
+  color: var(--calcite-pagination-arrow-color);
+
+  &:hover,
+  &:active,
+  &:focus {
+    --calcite-pagination-arrow-color: var(--calcite-pagination-arrow-color-hover);
+  }
+
   &:hover {
-    @apply bg-foreground-2;
-    color: theme("backgroundColor.brand");
+    --calcite-pagination-arrow-background-color: var(--calcite-pagination-arrow-background-color-hover);
   }
-  &:active {
-    @apply bg-foreground-3;
+  &:active,
+  &:focus {
+    --calcite-pagination-arrow-background-color: var(--calcite-pagination-arrow-background-color-focus);
   }
+
   &.disabled {
-    @apply pointer-events-none bg-transparent;
-    & > calcite-icon {
+    --calcite-pagination-arrow-background-color: var(--calcite-color-transparent);
+    @apply pointer-events-none;
+
+    > calcite-icon {
       @apply opacity-disabled;
     }
   }
 }
+
+:host([scale="s"]) {
+  --calcite-internal-pagination-font-size: var(--calcite-font-size--2);
+  --calcite-internal-pagination-line-height: 1rem /* 16px */;
+  --calcite-internal-pagination-block-size: 1.5rem /* 24px */;
+  --calcite-internal-pagination-spacing-inline: 0.25rem /* 4px */;
+  --calcite-internal-pagination-icon-spacing-inline: 0.25rem /* 4px */;
+  --calcite-internal-pagination-inline-size: theme("width.6");
+}
+
+:host([scale="m"]) {
+  --calcite-internal-pagination-font-size: var(--calcite-font-size--1);
+  --calcite-internal-pagination-line-height: 1rem /* 16px */;
+  --calcite-internal-pagination-block-size: 2rem /* 32px */;
+  --calcite-internal-pagination-spacing-inline: 0.5rem /* 8px */;
+  --calcite-internal-pagination-icon-spacing-inline: 0.5rem /* 8px */;
+  --calcite-internal-pagination-inline-size: theme("width.8");
+}
+
+:host([scale="l"]) {
+  --calcite-internal-pagination-font-size: var(--calcite-font-size--0);
+  --calcite-internal-pagination-line-height: 1.25rem /* 20px */;
+  --calcite-internal-pagination-block-size: 2.75rem /* 44px */;
+  --calcite-internal-pagination-spacing-inline: 0.75rem /* 12px */;
+  --calcite-internal-pagination-icon-spacing-inline: 0.625rem /* 10px */;
+  --calcite-internal-pagination-inline-size: theme("width.11");
+}
+
+// .chevron,
+// .page,
+// .ellipsis {
+// @apply p-0
+//   m-0
+//   text-0h
+//   text-color-3
+//   font-inherit
+//   box-border
+//   flex
+//   items-center
+//   border-none
+//   border-opacity-0
+//   justify-center
+//   align-baseline
+//   bg-transparent;
+// }
+
+// .chevron,
+// .page {
+//   @apply cursor-pointer;
+//   border-block: 2px solid transparent;
+
+//   &:hover {
+//     @apply text-color-1 transition-default;
+//   }
+// }
+
+// .page {
+//   &:hover {
+//     @apply border-b-color-2;
+//   }
+//   &.selected {
+//     @apply text-color-1 border-b-color-brand font-medium;
+//   }
+// }
+
+// .chevron {
+//   &:hover {
+//     @apply bg-foreground-2;
+//     color: theme("backgroundColor.brand");
+//   }
+//   &:active {
+//     @apply bg-foreground-3;
+//   }
+//   &.disabled {
+//     @apply pointer-events-none bg-transparent;
+//     & > calcite-icon {
+//       @apply opacity-disabled;
+//     }
+//   }
+// }
 
 @include base-component();

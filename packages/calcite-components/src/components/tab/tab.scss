@@ -7,19 +7,12 @@
  * @prop --calcite-tab-content-space: Specifies the space of the component's content in the `default` slot.
  */
 
-:host([selected]) {
-  section,
-  .container {
-    @apply block;
-  }
-}
-
 :host {
-  @apply hidden h-full w-full;
+  @apply hidden;
 }
 
 :host([selected]) {
-  @apply block h-full w-full overflow-auto;
+  @apply block overflow-auto;
 }
 
 .content {
@@ -53,9 +46,10 @@
   }
 }
 
+:host,
 section,
 .container {
-  @apply hidden h-full w-full;
+  @apply h-full w-full;
 }
 
 @include base-component();

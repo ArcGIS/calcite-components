@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-conditional-expect -- Using conditional logic in a confined test helper to handle specific scenarios, reducing duplication, balancing test readability and maintainability. **/
 /* eslint-disable jest/no-export -- Util functions are now imported to be used as `it` blocks within `describe` instead of assertions within `it` blocks. */
-import { E2EElement, E2EPage, EventSpy, newE2EPage } from "@stencil/core/testing";
+import { SpecPage, E2EElement, E2EPage, EventSpy, newE2EPage } from "@stencil/core/testing";
 import axe from "axe-core";
 import { toHaveNoViolations } from "jest-axe";
 import { config } from "../../stencil.config";
@@ -226,6 +226,54 @@ function propToAttr(name: string): string {
  */
 export function defaults(
   componentTestSetup: ComponentTestSetup,
+  propsToTest: {
+    propertyName: string;
+    defaultValue: any;
+  }[],
+): void {
+  it.each(propsToTest.map(({ propertyName, defaultValue }) => [propertyName, defaultValue]))(
+    "%p",
+    async (propertyName, defaultValue) => {
+      const { page, tag } = await getTagAndPage(componentTestSetup);
+      const element = await page.find(tag);
+      const prop = await element.getProperty(propertyName);
+      expect(prop).toEqual(defaultValue);
+    },
+  );
+}
+
+/**
+ * Helper for asserting that a property's value is its default but using spec
+ *
+ * Note that this helper should be used within a describe block.
+ *
+ * @example
+ * describe("defaults", () => {
+ *    defaults_spec( Action, "calcite-action", [
+ *      {
+ *        propertyName: "active",
+ *        defaultValue: false
+ * @param componentTestSetup.page
+ *      },
+ *      {
+ *        propertyName: "appearance",
+ *        defaultValue: "solid"
+ *      }
+ *    ])
+ * })
+ *
+ * @param {string} componentTagOrHTML - the component tag or HTML markup to test against
+ * @param componentTestSetup
+ * @param componentTestSetup.tag
+ * @param {object[]} propsToTest - the properties to test
+ * @param {string} propsToTest.propertyName - the property name
+ * @param {any} propsToTest.value - the property value
+ */
+export function defaults_spec(
+  componentTestSetup: {
+    tag: ComponentTag;
+    page: SpecPage;
+  },
   propsToTest: {
     propertyName: string;
     defaultValue: any;

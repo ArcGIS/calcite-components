@@ -221,6 +221,12 @@ export const arabicLocale_TestOnly = (): string => html`
   ></calcite-action>
 `;
 
+export const textVisibleWhenTextEnabled = (): string =>
+  html` <calcite-action text="hello world" text-enabled></calcite-action>`;
+
+export const textNotVisibleWhenTextNotEnabled = (): string =>
+  html` <calcite-action text="hello world"></calcite-action>`;
+
 export const darkModeRTL_TestOnly = (): string =>
   html`<div>
     ${create(

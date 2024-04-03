@@ -10,6 +10,7 @@ import { hexToHue, stringToHex } from "./utils";
   shadow: true,
 })
 export class Avatar {
+  // test comment
   //--------------------------------------------------------------------------
   //
   //  Properties

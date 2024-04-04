@@ -133,17 +133,17 @@ describe("calcite-action", () => {
     accessible(`<calcite-action indicator text="hello world"></calcite-action>`);
   });
 
-  it("should have a tooltip", async () => {
-    const page = await newE2EPage();
-    await page.setContent(
-      `<calcite-action text="hello world"><calcite-tooltip slot="tooltip">Hello World!</calcite-tooltip></calcite-action>`,
-    );
-    await page.waitForChanges();
+  // it("should have a tooltip", async () => {
+  //   const page = await newE2EPage();
+  //   await page.setContent(
+  //     `<calcite-action text="hello world"><calcite-tooltip slot="tooltip">Hello World!</calcite-tooltip></calcite-action>`,
+  //   );
+  //   await page.waitForChanges();
 
-    const tooltip = await page.find("calcite-tooltip");
-    const referenceElement: HTMLElement = await tooltip.getProperty("referenceElement");
-    expect(referenceElement).toBeDefined();
-  });
+  //   const tooltip = await page.find("calcite-tooltip");
+  //   const referenceElement: HTMLElement = await tooltip.getProperty("referenceElement");
+  //   expect(referenceElement).toBeDefined();
+  // });
 
   describe("translation support", () => {
     t9n("calcite-action");

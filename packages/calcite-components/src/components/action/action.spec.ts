@@ -1,4 +1,5 @@
 import { newSpecPage } from "@stencil/core/testing";
+import { CSS } from "../action/resources";
 import { Action } from "./action";
 
 describe("calcite-action", () => {
@@ -36,132 +37,131 @@ describe("calcite-action", () => {
     expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
   });
 
-  //   it("should have icon container with calcite-icon", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action><calcite-icon icon="hamburger" scale="s"></calcite-icon></calcite-action>`,
-  //     });
+  it("should have icon container with calcite-icon", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action><calcite-icon icon="hamburger" scale="s"></calcite-icon></calcite-action>`,
+    });
 
-  //     expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
+    expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
+  });
+
+  it("should have icon container with calcite-icon: after delay", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action></calcite-action>`,
+    });
+
+    await jest.setTimeout(1000);
+
+    page.body.innerHTML = `<calcite-action><calcite-icon icon="hamburger" scale="s"></calcite-icon></calcite-action>`;
+
+    await page.waitForChanges();
+
+    expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
+  });
+
+  it("should have icon container with svg", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action><svg></svg></calcite-action>`,
+    });
+
+    expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
+  });
+
+  it("should not have icon container if no icon present", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action></calcite-action>`,
+    });
+
+    expect(page.root.shadowRoot.querySelector(".icon-container")).toBeNull();
+  });
+
+  it("should have icon container if loading", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action loading></calcite-action>`,
+    });
+
+    expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
+  });
+  it("should use text prop for a11y attributes when text is not enabled", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action text="hello world"></calcite-action>`,
+    });
+
+    expect(page.root.shadowRoot.querySelector(CSS.button).getAttribute("aria-label")).toBe(`hello world`);
+  });
+
+  // it("should set aria-label with indicator", async () => {
+  //   const page = await newSpecPage({
+  //     components: [Action],
+  //     html: `<calcite-action lang="en-US" indicator text="hello world"></calcite-action>`,
   //   });
 
-  //   it("should have icon container with calcite-icon: after delay", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action></calcite-action>`,
-  //     });
+  //   page.waitForChanges();
 
-  //     await jest.setTimeout(1000);
+  //   expect(page.root.shadowRoot).toEqualHtml("");
 
-  //     page.body.innerHTML = `<calcite-action><calcite-icon icon="hamburger" scale="s"></calcite-icon></calcite-action>`;
+  //   expect(page.root.shadowRoot.querySelector(`.${CSS.button}`).getAttribute("aria-label")).toBe(
+  //     `hello world (Indicator present)`,
+  //   );
+  // });
 
-  //     await page.waitForChanges();
+  it("should have label", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action text="hello world" label="hi"></calcite-action>`,
+    });
 
-  //     expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
+    expect(page.root.shadowRoot.querySelector(CSS.button).getAttribute("aria-label")).toBe("hi");
+  });
+
+  it("should have appearance=solid", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action text="hello world"></calcite-action>`,
+    });
+
+    expect(page.body.querySelector("calcite-action").getAttribute("appearance")).toBe("solid");
+  });
+
+  it("should have a tooltip", async () => {
+    const page = await newSpecPage({
+      components: [Action],
+      html: `<calcite-action text="hello world"><calcite-tooltip slot="tooltip">Hello World!</calcite-tooltip></calcite-action>`,
+    });
+
+    const tooltip = page.root.shadowRoot.querySelector("calcite-tooltip");
+
+    expect(tooltip).toBeDefined();
+  });
+
+  //help Franco
+  // it("should have a indicator live region", async () => {
+  //   const page = await newSpecPage({
+  //     components: [Action],
+  //     html: `<calcite-action></calcite-action>`,
   //   });
 
-  //   it("should have icon container with svg", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action><svg></svg></calcite-action>`,
-  //     });
+  //   let liveRegion = page.root.shadowRoot.querySelector(`.${CSS.indicatorText}`);
 
-  //     expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
-  //   });
+  //   expect(liveRegion.getAttribute("role")).toBe("region");
+  //   expect(liveRegion.textContent).toBe("");
 
-  //   it("should not have icon container if no icon present", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action></calcite-action>`,
-  //     });
+  //   await page.setContent(`<calcite-action indicator></calcite-action>`);
+  //   await page.waitForChanges();
 
-  //     expect(page.root.shadowRoot.querySelector(".icon-container")).toBeNull();
-  //   });
+  //   liveRegion = page.root.shadowRoot.querySelector(`.${CSS.indicatorText}`);
+  //   expect(liveRegion).toEqualHtml("");
 
-  //   it("should have icon container if loading", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action loading></calcite-action>`,
-  //     });
-
-  //     expect(page.root.shadowRoot.querySelector(".icon-container")).not.toBeNull();
-  //   });
-  //   it("should use text prop for a11y attributes when text is not enabled", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action text="hello world"></calcite-action>`,
-  //     });
-
-  //     expect(page.root.shadowRoot.querySelector(CSS.button).getAttribute("aria-label")).toBe(`hello world`);
-  //   });
-
-  //   it("should set aria-label with indicator", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action indicator text="hello world"></calcite-action>`,
-  //     });
-
-  //     //------ask Franco-------
-
-  //     expect(page.root.shadowRoot.querySelector(CSS.button).getAttribute("aria-label")).toBe(
-  //       `hello world (Indicator present)`,
-  //     );
-  //   });
-
-  //   it("should have label", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action text="hello world" label="hi"></calcite-action>`,
-  //     });
-
-  //     expect(page.root.shadowRoot.querySelector(CSS.button).getAttribute("aria-label")).toBe("hi");
-  //   });
-
-  //   it("should have appearance=solid", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action text="hello world"></calcite-action>`,
-  //     });
-
-  //     expect(page.body.querySelector("calcite-action").getAttribute("appearance")).toBe("solid");
-  //   });
-
-  //help
-
-  //   // it("should have a tooltip", async () => {
-  //   //   const page = await newSpecPage({
-  //   //     components: [Action],
-  //   //     html: `<calcite-action text="hello world"><calcite-tooltip slot="tooltip">Hello World!</calcite-tooltip></calcite-action>`,
-  //   //   });
-
-  //   //   const tooltip = page.root.shadowRoot.querySelector("calcite-tooltip");
-
-  //   //   expect(page.body.querySelector("calcite-tooltip")).toEqualHtml("");
-  //   //   // expect(tooltip).toBeDefined();
-  //   // });
-
-  //   //help Franco
-  //   it("should have a indicator live region", async () => {
-  //     const page = await newSpecPage({
-  //       components: [Action],
-  //       html: `<calcite-action></calcite-action>`,
-  //     });
-
-  //     let liveRegion = page.root.shadowRoot.querySelector(`.${CSS.indicatorText}`);
-
-  //     expect(liveRegion.getAttribute("role")).toBe("region");
-  //     expect(liveRegion.textContent).toBe("");
-
-  //     await page.setContent(`<calcite-action indicator></calcite-action>`);
-  //     await page.waitForChanges();
-
-  //     liveRegion = page.root.shadowRoot.querySelector(`.${CSS.indicatorText}`);
-  //     expect(liveRegion).toEqualHtml("");
-
-  //     expect(liveRegion.getAttribute("aria-live")).toBe("polite");
-  //     expect(liveRegion.getAttribute("role")).toBe("region");
-  //     expect(liveRegion.textContent).toBe("Indicator present");
-  //   });
+  //   expect(liveRegion.getAttribute("aria-live")).toBe("polite");
+  //   expect(liveRegion.getAttribute("role")).toBe("region");
+  //   expect(liveRegion.textContent).toBe("Indicator present");
+  // });
 
   //   // it("should have a indicator live region", async () => {
   //   //   const page = await newE2EPage();

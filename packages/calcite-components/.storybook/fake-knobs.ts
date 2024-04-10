@@ -34,6 +34,6 @@ export function array(_name: string, defaultValue: string[], _groupName?: string
   return defaultValue;
 }
 
-export function number(_name: string, defaultValue: number, _groupName?: string): number {
+export function number(_name: string, defaultValue: number, _options?: any, _groupName?: string): number {
   return defaultValue;
 }

@@ -219,14 +219,7 @@ export const arabicLocale_TestOnly = (): string => html`
     text="لكن لا بد أن أوضح لك أن كل"
     text-enabled
   ></calcite-action>
-  //
 `;
-
-// export const textVisibleWhenTextEnabled = (): string =>
-//   html` <calcite-action text="hello world" text-enabled></calcite-action>`;
-
-// export const textNotVisibleWhenTextNotEnabled = (): string =>
-//   html` <calcite-action text="hello world"></calcite-action>`;
 
 export const darkModeRTL_TestOnly = (): string =>
   html`<div>

@@ -674,6 +674,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Specifies the optional new name of the file after it is downloaded.
+         */
+        "download": string | boolean;
+        /**
           * The `id` of the form that will be associated with the component.  When not set, the component will be associated with its ancestor form element, if any.
          */
         "form": string;
@@ -805,10 +809,6 @@ export namespace Components {
           * Accessible name for the component.
          */
         "label": string;
-        /**
-          * Specifies the size of the component. Child `calcite-card`s inherit the component's value.
-         */
-        "scale": Scale;
         /**
           * Specifies the component's selected items.
           * @readonly
@@ -978,9 +978,6 @@ export namespace Components {
         "setFocus": () => Promise<void>;
     }
     interface CalciteColorPicker {
-        /**
-          * When `true`, an empty color (`null`) will be allowed as a `value`.  When `false`, a color value is enforced, and clearing the input or blurring will restore the last valid `value`.
-         */
         "allowEmpty": boolean;
         /**
           * When `true`, the component will allow updates to the color's alpha value.
@@ -990,6 +987,10 @@ export namespace Components {
           * When `true`, hides the RGB/HSV channel inputs.
          */
         "channelsDisabled": boolean;
+        /**
+          * When `true`, an empty color (`null`) will be allowed as a `value`.  When `false`, a color value is enforced, and clearing the input or blurring will restore the last valid `value`.
+         */
+        "clearable": boolean;
         /**
           * Internal prop for advanced use-cases.
          */
@@ -8059,6 +8060,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Specifies the optional new name of the file after it is downloaded.
+         */
+        "download"?: string | boolean;
+        /**
           * The `id` of the form that will be associated with the component.  When not set, the component will be associated with its ancestor form element, if any.
          */
         "form"?: string;
@@ -8191,10 +8196,6 @@ declare namespace LocalJSX {
           * Emits when the component's selection changes and the `selectionMode` is not `none`.
          */
         "onCalciteCardGroupSelect"?: (event: CalciteCardGroupCustomEvent<void>) => void;
-        /**
-          * Specifies the size of the component. Child `calcite-card`s inherit the component's value.
-         */
-        "scale"?: Scale;
         /**
           * Specifies the component's selected items.
           * @readonly
@@ -8373,9 +8374,6 @@ declare namespace LocalJSX {
   >;
     }
     interface CalciteColorPicker {
-        /**
-          * When `true`, an empty color (`null`) will be allowed as a `value`.  When `false`, a color value is enforced, and clearing the input or blurring will restore the last valid `value`.
-         */
         "allowEmpty"?: boolean;
         /**
           * When `true`, the component will allow updates to the color's alpha value.
@@ -8385,6 +8383,10 @@ declare namespace LocalJSX {
           * When `true`, hides the RGB/HSV channel inputs.
          */
         "channelsDisabled"?: boolean;
+        /**
+          * When `true`, an empty color (`null`) will be allowed as a `value`.  When `false`, a color value is enforced, and clearing the input or blurring will restore the last valid `value`.
+         */
+        "clearable"?: boolean;
         /**
           * Internal prop for advanced use-cases.
          */

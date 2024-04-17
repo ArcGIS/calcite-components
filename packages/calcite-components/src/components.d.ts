@@ -13211,5 +13211,5 @@ declare module "@stencil/core" {
              */
             "calcite-value-list-item": LocalJSX.CalciteValueListItem & JSXBase.HTMLAttributes<HTMLCalciteValueListItemElement>;
         }
-    }
+      }
 }

@@ -96,21 +96,6 @@ describe("calcite-action", () => {
     expect(page.root.shadowRoot.querySelector(CSS.button).getAttribute("aria-label")).toBe(`hello world`);
   });
 
-  // it("should set aria-label with indicator", async () => {
-  //   const page = await newSpecPage({
-  //     components: [Action],
-  //     html: `<calcite-action lang="en-US" indicator text="hello world"></calcite-action>`,
-  //   });
-
-  //   page.waitForChanges();
-
-  //   expect(page.root.shadowRoot).toEqualHtml("");
-
-  //   expect(page.root.shadowRoot.querySelector(`.${CSS.button}`).getAttribute("aria-label")).toBe(
-  //     `hello world (Indicator present)`,
-  //   );
-  // });
-
   it("should have label", async () => {
     const page = await newSpecPage({
       components: [Action],
@@ -139,47 +124,4 @@ describe("calcite-action", () => {
 
     expect(tooltip).toBeDefined();
   });
-
-  //help Franco
-  // it("should have a indicator live region", async () => {
-  //   const page = await newSpecPage({
-  //     components: [Action],
-  //     html: `<calcite-action></calcite-action>`,
-  //   });
-
-  //   let liveRegion = page.root.shadowRoot.querySelector(`.${CSS.indicatorText}`);
-
-  //   expect(liveRegion.getAttribute("role")).toBe("region");
-  //   expect(liveRegion.textContent).toBe("");
-
-  //   await page.setContent(`<calcite-action indicator></calcite-action>`);
-  //   await page.waitForChanges();
-
-  //   liveRegion = page.root.shadowRoot.querySelector(`.${CSS.indicatorText}`);
-  //   expect(liveRegion).toEqualHtml("");
-
-  //   expect(liveRegion.getAttribute("aria-live")).toBe("polite");
-  //   expect(liveRegion.getAttribute("role")).toBe("region");
-  //   expect(liveRegion.textContent).toBe("Indicator present");
-  // });
-
-  //   // it("should have a indicator live region", async () => {
-  //   //   const page = await newE2EPage();
-  //   //   await page.setContent(`<calcite-action></calcite-action>`);
-  //   //   await page.waitForChanges();
-
-  //   //   const action = await page.find("calcite-action");
-  //   //   const liveRegion = await page.find(`calcite-action >>> .${CSS.indicatorText}`);
-
-  //   //   expect(liveRegion.getAttribute("aria-live")).toBe("polite");
-  //   //   expect(liveRegion.getAttribute("role")).toBe("region");
-  //   //   expect(liveRegion.textContent).toBe("");
-
-  //   //   action.setProperty("indicator", true);
-  //   //   await page.waitForChanges();
-
-  //   //   expect(liveRegion.getAttribute("aria-live")).toBe("polite");
-  //   //   expect(liveRegion.getAttribute("role")).toBe("region");
-  //   //   expect(liveRegion.textContent).toBe("Indicator present");
-  //   // });
 });

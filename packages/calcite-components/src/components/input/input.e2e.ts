@@ -124,35 +124,30 @@ describe("calcite-input", () => {
     expect(calciteInputInput).not.toHaveReceivedEvent();
   });
 
-  it("renders an icon when explicit Calcite UI is requested, and is a type without a default icon", async () => {
+  it("renders an icon depending on whether explicit Calcite UI is requested & the type is with or without a default icon", async () => {
+    //changed
+    //renders an icon when explicit Calcite UI is requested, and is a type without a default icon
     const page = await newE2EPage();
     await page.setContent(html`<calcite-input icon="key" type="number"></calcite-input>`);
 
-    const icon = await page.find("calcite-input >>> .icon");
+    let icon = await page.find("calcite-input >>> .icon");
     expect(icon).not.toBeNull();
-  });
 
-  it("renders an icon when explicit Calcite UI is requested, and is a type with a default icon", async () => {
-    const page = await newE2EPage();
+    //renders an icon when explicit Calcite UI is requested, and is a type with a default icon
     await page.setContent(html`<calcite-input icon="key" type="date"></calcite-input>`);
 
-    const icon = await page.find("calcite-input >>> .icon");
+    icon = await page.find("calcite-input >>> .icon");
     expect(icon).not.toBeNull();
-  });
 
-  it("renders an icon when requested without an explicit Calcite UI, and is a type with a default icon", async () => {
-    const page = await newE2EPage();
+    //renders an icon when requested without an explicit Calcite UI, and is a type with a default icon"\
     await page.setContent(html`<calcite-input icon type="date"></calcite-input>`);
 
-    const icon = await page.find("calcite-input >>> .icon");
+    icon = await page.find("calcite-input >>> .icon");
     expect(icon).not.toBeNull();
-  });
-
-  it("does not render an icon when requested without an explicit Calcite UI, and is a type without a default icon", async () => {
-    const page = await newE2EPage();
+    //"does not render an icon when requested without an explicit Calcite UI, and is a type without a default icon"
     await page.setContent(html`<calcite-input icon type="number"></calcite-input>`);
 
-    const icon = await page.find("calcite-input >>> .icon");
+    icon = await page.find("calcite-input >>> .icon");
     expect(icon).toBeNull();
   });
 

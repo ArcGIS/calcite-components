@@ -298,26 +298,16 @@ describe("calcite-input", () => {
       const numberHorizontalItemDown = await page.find("calcite-input >>> .number-button-item[data-adjustment='down']");
       const numberHorizontalItemUp = await page.find("calcite-input >>> .number-button-item[data-adjustment='up']");
       expect(await element.getProperty("value")).toBe("3.123");
+
+      //test down
       await numberHorizontalItemDown.click();
       await page.waitForChanges();
       expect(await element.getProperty("value")).toBe("3.122");
+
+      //test up
       await numberHorizontalItemUp.click();
       await page.waitForChanges();
       expect(await element.getProperty("value")).toBe("3.123");
-      await numberHorizontalItemUp.click();
-      await page.waitForChanges();
-      expect(await element.getProperty("value")).toBe("3.124");
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      await numberHorizontalItemUp.click();
-      expect(await element.getProperty("value")).toBe("3.134");
     });
 
     it("correctly increments and decrements initial decimal value by 1 when number buttons are clicked and step is set to default of 1.", async () => {

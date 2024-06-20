@@ -81,7 +81,7 @@ export class TipManager {
 
   @Element() el: HTMLCalciteTipManagerElement;
 
-  @State() selectedIndex: number;
+  @State() selectedIndex = 0;
 
   @Watch("selectedIndex")
   selectedChangeHandler(): void {

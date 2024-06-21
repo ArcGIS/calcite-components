@@ -11,6 +11,7 @@ import {
   Prop,
   VNode,
   Watch,
+  State,
 } from "@stencil/core";
 import { getElementDir } from "../../utils/dom";
 import {
@@ -198,14 +199,26 @@ export class SegmentedControl
     updateHostInteraction(this);
   }
 
+  @State() segVal: boolean = false;
+
+  btnClicked(event: MouseEvent): void {
+    this.segVal = !this.segVal;
+    this.disabled = !this.disabled;
+    console.log(event);
+  }
+
   render(): VNode {
     return (
       <Host onClick={this.handleClick} role="radiogroup">
         <div class={CSS.itemWrapper}>
           <InteractiveContainer disabled={this.disabled}>
             <slot />
+            <calcite-segmented-control-item checked={this.segVal} value="react2">
+              React2
+            </calcite-segmented-control-item>
             <HiddenFormInputSlot component={this} />
           </InteractiveContainer>
+          <button onClick={this.btnClicked}>Click Me</button>
         </div>
         {this.validationMessage && this.status === "invalid" ? (
           <Validation

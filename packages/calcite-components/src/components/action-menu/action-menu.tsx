@@ -100,7 +100,6 @@ export class ActionMenu implements LoadableComponent {
     if (this.menuButtonEl) {
       this.menuButtonEl.active = open;
     }
-    this.calciteActionMenuOpen.emit();
 
     this.setTooltipReferenceElement();
   }
@@ -130,10 +129,16 @@ export class ActionMenu implements LoadableComponent {
   //
   // --------------------------------------------------------------------------
 
-  /**
-   * Fires when the `open` property is toggled.
-   *
-   */
+  /** Fires when the component is requested to be closed and before the closing transition begins. */
+  @Event({ cancelable: false }) calciteActionMenuBeforeClose: EventEmitter<void>;
+
+  /** Fires when the component is closed and animation is complete. */
+  @Event({ cancelable: false }) calciteActionMenuClose: EventEmitter<void>;
+
+  /** Fires when the component is added to the DOM but not rendered, and before the opening transition begins. */
+  @Event({ cancelable: false }) calciteActionMenuBeforeOpen: EventEmitter<void>;
+
+  /** Fires when the component is open and animation is complete. */
   @Event({ cancelable: false }) calciteActionMenuOpen: EventEmitter<void>;
 
   // --------------------------------------------------------------------------
@@ -157,6 +162,8 @@ export class ActionMenu implements LoadableComponent {
   menuId = `${this.guid}-menu`;
 
   menuButtonId = `${this.guid}-menu-button`;
+
+  openTransitionProp = "opacity";
 
   tooltipEl: HTMLCalciteTooltipElement;
 
@@ -296,8 +303,10 @@ export class ActionMenu implements LoadableComponent {
         focusTrapDisabled={true}
         label={label}
         offsetDistance={0}
-        onCalcitePopoverClose={this.handlePopoverClose}
-        onCalcitePopoverOpen={this.handlePopoverOpen}
+        onCalcitePopoverBeforeClose={this.onPopoverBeforeClose}
+        onCalcitePopoverBeforeOpen={this.onPopoverBeforeOpen}
+        onCalcitePopoverClose={this.onPopoverClose}
+        onCalcitePopoverOpen={this.onPopoverOpen}
         open={open}
         overlayPositioning={overlayPositioning}
         placement={placement}
@@ -500,11 +509,25 @@ export class ActionMenu implements LoadableComponent {
     this.open = value;
   };
 
-  private handlePopoverOpen = (): void => {
+  private onPopoverBeforeOpen = (event: CustomEvent): void => {
+    event.stopPropagation();
     this.open = true;
+    this.calciteActionMenuBeforeOpen.emit();
   };
 
-  private handlePopoverClose = (): void => {
+  private onPopoverOpen = (event: CustomEvent): void => {
+    event.stopPropagation();
+    this.calciteActionMenuOpen.emit();
+  };
+
+  private onPopoverBeforeClose = (event: CustomEvent): void => {
+    event.stopPropagation();
+    this.calciteActionMenuBeforeClose.emit();
+  };
+
+  private onPopoverClose = (event: CustomEvent): void => {
     this.open = false;
+    event.stopPropagation();
+    this.calciteActionMenuClose.emit();
   };
 }

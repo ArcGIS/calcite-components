@@ -3,43 +3,19 @@
  *
  * These properties can be overridden using the component's tag as selector.
  *
- * @prop --calcite-action-indicator-color: Specifies the component's indicator color.
  * @prop --calcite-action-background-color: Specifies the component's background color.
- * @prop --calcite-action-background-color-hover: Specifies the component's background color when hovered or focused.
- * @prop --calcite-action-background-color-pressed: Specifies the component's background color when active.
  * @prop --calcite-action-corner-radius: Specifies the component's corner radius.
- * @prop --calcite-action-corner-radius-end-end: Specifies the component's corner radius end end.
- * @prop --calcite-action-corner-radius-end-start: Specifies the component's corner radius end start.
- * @prop --calcite-action-corner-radius-start-end: Specifies the component's corner radius start end.
- * @prop --calcite-action-corner-radius-start-start: Specifies the component's corner radius start start.
+ * @prop --calcite-action-indicator-color: Specifies the component's indicator color.
  * @prop --calcite-action-text-color: Specifies the component's text color.
- * @prop --calcite-action-text-color-pressed: Specifies the component's text color when hovered.
- */
 
-:host {
-  @extend %component-host;
-  @apply flex bg-transparent;
-}
-
-:host,
-button {
-  border-end-end-radius: var(
-    --calcite-action-corner-radius-end-end,
-    var(--calcite-action-corner-radius, var(--calcite-corner-radius))
-  );
-  border-end-start-radius: var(
-    --calcite-action-corner-radius-end-start,
-    var(--calcite-action-corner-radius, var(--calcite-corner-radius))
-  );
-  border-start-end-radius: var(
-    --calcite-action-corner-radius-start-end,
-    var(--calcite-action-corner-radius, var(--calcite-corner-radius))
-  );
-  border-start-start-radius: var(
-    --calcite-action-corner-radius-start-start,
-    var(--calcite-action-corner-radius, var(--calcite-corner-radius))
-  );
-}
+ * @prop --calcite-action-background-color-hover: [Deprecated] Use --calcite-action-background-color when the component is hovered. Specifies the component's background color on hover.
+ * @prop --calcite-action-background-color-pressed: [Deprecated] Use --calcite-action-background-color-pressed when the component is active. Specifies the component's background color on press.
+ * @prop --calcite-action-corner-radius-end-end: [Deprecated] Use --calcite-action-corner-radius. Specifies the component's corner radius on the end end.
+ * @prop --calcite-action-corner-radius-end-start: [Deprecated] Use --calcite-action-corner-radius. Specifies the component's corner radius on the end start.
+ * @prop --calcite-action-corner-radius-start-end: [Deprecated] Use --calcite-action-corner-radius. Specifies the component's corner radius on the start end.
+ * @prop --calcite-action-corner-radius-start-start: [Deprecated] Use --calcite-action-corner-radius. Specifies the component's corner radius on the start start.
+ * @prop --calcite-action-text-color-pressed: [Deprecated] Use --calcite-action-text-color when component is active. Specifies the component's text color when active.
+*/
 
 @mixin action-indicator() {
   position: relative;
@@ -55,6 +31,17 @@ button {
   }
 }
 
+$corner-radius-fallback: var(--calcite-action-corner-radius-start-start, var(--calcite-corner-radius))
+  var(--calcite-action-corner-radius-start-end, var(--calcite-corner-radius))
+  var(--calcite-action-corner-radius-end-end, var(--calcite-corner-radius))
+  var(--calcite-action-corner-radius-end-start, var(--calcite-corner-radius));
+
+:host {
+  @extend %component-host;
+  @apply flex bg-transparent;
+  border-radius: var(--calcite-action-corner-radius, $corner-radius-fallback);
+}
+
 .button {
   @apply focus-base
     text-n2h
@@ -68,24 +55,103 @@ button {
     border-none
     font-medium
     font-sans;
-
-  background-color: var(--calcite-action-background-color, var(--calcite-color-foreground-1));
+  border-radius: inherit;
   color: var(--calcite-action-text-color, var(--calcite-color-text-3));
   text-align: unset;
   flex: 1 0 auto;
+}
 
-  &:hover,
-  &:focus {
-    background-color: var(--calcite-action-background-color-hover, var(--calcite-color-foreground-2));
-    color: var(--calcite-action-text-color-pressed, var(--calcite-color-text-1));
+:host([active], :hover, :focus) .button {
+  color: var(--calcite-action-text-color, var(--calcite-action-text-color-hover, var(--calcite-color-text-1)));
+}
+
+:host(:active) .button {
+  color: var(--calcite-action-text-color, var(--calcite-action-text-color-pressed, var(--calcite-color-text-2)));
+}
+
+:host(:focus) .button {
+  @apply focus-inset;
+}
+
+:host([loading]) {
+  .text-container {
+    @apply opacity-disabled;
   }
 
-  &:focus {
-    @apply focus-inset;
+  calcite-loader[inline] {
+    margin-inline-end: theme("spacing.0");
   }
 
-  &:active {
-    background-color: var(--calcite-action-background-color-pressed, var(--calcite-color-foreground-3));
+  &:host(:hover, :focus, :active) .button {
+    color: var(--calcite-action-text-color, var(--calcite-color-text-3));
+  }
+}
+
+:host([appearance="solid"]) {
+  .button {
+    background-color: var(--calcite-action-background-color, var(--calcite-color-foreground-1));
+  }
+
+  &:host(:hover, :focus) {
+    .button {
+      background-color: var(
+        --calcite-action-background-color,
+        var(--calcite-action-background-color-hover, var(--calcite-color-foreground-2))
+      );
+    }
+  }
+  &:host(:active) .button {
+    background-color: var(
+      --calcite-action-background-color,
+      var(--calcite-action-background-color-pressed, var(--calcite-color-foreground-3))
+    );
+  }
+  &:host([active]) {
+    &:host(:hover, :focus) .button {
+      background-color: var(
+        --calcite-action-background-color,
+        var(--calcite-action-background-color-pressed, var(--calcite-color-foreground-3))
+      );
+    }
+    &:host(:active) .button {
+      background-color: var(--calcite-action-background-color, var(--calcite-color-foreground-1));
+    }
+  }
+
+  &:host([loading]):host(:hover, :focus, :active) .button {
+    background-color: var(--calcite-action-background-color, var(--calcite-color-foreground-1));
+  }
+}
+
+:host([appearance="transparent"]) {
+  .button {
+    @apply bg-transparent
+      transition-shadow
+      duration-150
+      ease-in-out;
+  }
+
+  &:host(:hover, :focus) .button {
+    background-color: var(--calcite-color-transparent-hover);
+  }
+
+  &:host(:active) .button {
+    background-color: var(--calcite-color-transparent-press);
+  }
+
+  &:host([active]) {
+    .button,
+    &:host(:hover, :focus) .button {
+      background-color: var(--calcite-color-transparent-press);
+    }
+
+    &:host(:active) .button {
+      background-color: var(--calcite-color-transparent);
+    }
+  }
+
+  &:host([loading]):host(:hover, :focus, :active) .button {
+    background-color: var(--calcite-color-transparent);
   }
 }
 
@@ -115,56 +181,6 @@ button {
 
 .text-container--visible {
   @apply w-auto flex-auto opacity-100;
-}
-
-:host([active]) {
-  .button {
-    &,
-    &:hover,
-    &:focus {
-      color: var(--calcite-action-text-color-pressed, var(--calcite-color-text-1));
-      background-color: var(--calcite-action-background-color-pressed, var(--calcite-color-foreground-3));
-    }
-
-    &:active {
-      background-color: var(--calcite-action-background-color, var(--calcite-color-foreground-1));
-    }
-  }
-}
-
-:host([loading]) {
-  .button {
-    &:hover,
-    &:focus {
-      background-color: var(--calcite-action-background-color, var(--calcite-color-foreground-1));
-    }
-  }
-
-  .text-container {
-    @apply opacity-disabled;
-  }
-
-  calcite-loader[inline] {
-    margin-inline-end: theme("spacing.0");
-  }
-}
-
-:host([appearance="transparent"]) {
-  .button {
-    @apply bg-transparent
-      transition-shadow
-      duration-150
-      ease-in-out;
-
-    &:hover,
-    &:focus {
-      background-color: var(--calcite-color-transparent-hover);
-    }
-
-    &:active {
-      background-color: var(--calcite-color-transparent-press);
-    }
-  }
 }
 
 :host([data-active]) .button {

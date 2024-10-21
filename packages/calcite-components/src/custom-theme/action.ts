@@ -3,10 +3,7 @@ import { html } from "../../support/formatting";
 export const actionTokens = {
   calciteActionIndicatorColor: "",
   calciteActionBackgroundColor: "",
-  calciteActionBackgroundColorHover: "",
-  calciteActionBackgroundColorPressed: "",
   calciteActionTextColor: "",
-  calciteActionTextColorPressed: "",
 };
 
 export const actionBarTokens = {

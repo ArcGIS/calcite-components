@@ -214,16 +214,6 @@ describe("calcite-action", () => {
           shadowSelector: `.${CSS.button}`,
           targetProp: "backgroundColor",
         },
-        "--calcite-action-background-color-hover": {
-          shadowSelector: `.${CSS.button}`,
-          targetProp: "backgroundColor",
-          state: "hover",
-        },
-        "--calcite-action-background-color-pressed": {
-          shadowSelector: `.${CSS.button}`,
-          targetProp: "backgroundColor",
-          state: { press: { attribute: "class", value: CSS.button } },
-        },
       });
     });
     describe("text", () => {
@@ -240,11 +230,6 @@ describe("calcite-action", () => {
             shadowSelector: `.${CSS.button}`,
             targetProp: "color",
           },
-          "--calcite-action-text-color-pressed": {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "color",
-            state: "hover",
-          },
         },
       );
     });
@@ -259,7 +244,7 @@ describe("calcite-action", () => {
           icon="configure-popup"
         ></calcite-action>`,
         {
-          "--calcite-action-text-color-pressed": {
+          "--calcite-action-text-color": {
             shadowSelector: `.${CSS.button}`,
             targetProp: "color",
           },
@@ -289,126 +274,6 @@ describe("calcite-action", () => {
     describe("corner radius", () => {
       themed(html`calcite-action`, {
         "--calcite-action-corner-radius": [
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartStartRadius",
-          },
-          {
-            targetProp: "borderStartStartRadius",
-          },
-        ],
-        "--calcite-action-corner-radius-end-end": [
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartStartRadius",
-          },
-          {
-            targetProp: "borderStartStartRadius",
-          },
-        ],
-        "--calcite-action-corner-radius-end-start": [
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartStartRadius",
-          },
-          {
-            targetProp: "borderStartStartRadius",
-          },
-        ],
-        "--calcite-action-corner-radius-start-end": [
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            targetProp: "borderEndEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            targetProp: "borderEndStartRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            targetProp: "borderStartEndRadius",
-          },
-          {
-            shadowSelector: `.${CSS.button}`,
-            targetProp: "borderStartStartRadius",
-          },
-          {
-            targetProp: "borderStartStartRadius",
-          },
-        ],
-        "--calcite-action-corner-radius-start-start": [
           {
             shadowSelector: `.${CSS.button}`,
             targetProp: "borderEndEndRadius",

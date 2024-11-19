@@ -31,6 +31,7 @@ import { useT9n } from "../../controllers/useT9n";
 import type { ListItem } from "../list-item/list-item";
 import type { Filter } from "../filter/filter";
 import type { ListItemGroup } from "../list-item-group/list-item-group";
+import { Scale, Mode } from "../interfaces";
 import { CSS, debounceTimeout, SelectionAppearance, SLOTS } from "./resources";
 import T9nStrings from "./assets/t9n/list.t9n.en.json";
 import { ListDragDetail, ListMoveDetail } from "./interfaces";
@@ -109,6 +110,7 @@ export class List
         item.selectionAppearance = selectionAppearance;
         item.selectionMode = selectionMode;
         item.interactionMode = interactionMode;
+        item.scale = this.scale;
         if (item.closest("calcite-list") === el) {
           item.moveToItems = moveToItems.filter(
             (moveToItem) => moveToItem.element !== el && !item.contains(moveToItem.element),
@@ -256,6 +258,18 @@ export class List
   /** Specifies the selection appearance - `"icon"` (displays a checkmark or dot) or `"border"` (displays a border). */
   @property({ reflect: true }) selectionAppearance: SelectionAppearance = "icon";
 
+  /** Specifies the size of the component. */
+  @property({ reflect: true }) scale: Scale = "m";
+
+  /**
+   * Specifies the mode of the component, where:
+   *
+   * `"flat"` aligns all items to the left, even if they're nested,
+   *
+   * `"nested"` adds left indentation to nested items,
+   */
+  @property({ reflect: true }) mode: Mode = "flat";
+
   /**
    * Specifies the selection mode of the component, where:
    *
@@ -356,6 +370,7 @@ export class List
   async load(): Promise<void> {
     setUpLoadableComponent(this);
     this.handleInteractionModeWarning();
+    this.getParentListProps();
   }
 
   /**
@@ -382,7 +397,8 @@ export class List
       (changes.has("dragEnabled") && (this.hasUpdated || this.dragEnabled !== false)) ||
       (changes.has("selectionMode") && (this.hasUpdated || this.selectionMode !== "none")) ||
       (changes.has("selectionAppearance") &&
-        (this.hasUpdated || this.selectionAppearance !== "icon"))
+        (this.hasUpdated || this.selectionAppearance !== "icon")) ||
+      (changes.has("scale") && (this.hasUpdated || this.scale !== "m"))
     ) {
       this.handleListItemChange();
     }
@@ -776,6 +792,12 @@ export class List
       label: element.label ?? element.id,
       id: el.id || guid(),
     }));
+
+    const groupItems = Array.from(this.el.querySelectorAll("calcite-list-item-group"));
+
+    groupItems.forEach((item) => {
+      item.scale = this.scale;
+    });
   }
 
   private focusRow(focusEl: ListItem["el"]): void {
@@ -853,6 +875,12 @@ export class List
       this.selectionAppearance === "border"
     ) {
       console.warn(`selection-appearance="border" requires interaction-mode="interactive"`);
+    }
+  }
+
+  private getParentListProps(): void {
+    if (this.parentListEl) {
+      this.el.scale = this.parentListEl.scale;
     }
   }
 

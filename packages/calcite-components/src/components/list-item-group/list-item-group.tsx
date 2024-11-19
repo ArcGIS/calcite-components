@@ -4,6 +4,7 @@ import {
   InteractiveContainer,
   updateHostInteraction,
 } from "../../utils/interactive";
+import { Scale } from "../interfaces";
 import { MAX_COLUMNS } from "../list-item/resources";
 import { CSS } from "./resources";
 import { styles } from "./list-item-group.scss";
@@ -18,6 +19,17 @@ export class ListItemGroup extends LitElement implements InteractiveComponent {
   // #region Static Members
 
   static override styles = styles;
+
+  // #endregion
+
+  // #region Private Properties
+
+  /**
+   * Specifies the size of the component inherited from the parent `calcite-list`, defaults to `m`.
+   *
+   * @private
+   */
+  @property({ reflect: true }) scale: Scale = "m";
 
   // #endregion
 

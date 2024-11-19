@@ -7,7 +7,7 @@ import {
   InteractiveContainer,
   updateHostInteraction,
 } from "../../utils/interactive";
-import { SelectionMode, InteractionMode } from "../interfaces";
+import { SelectionMode, Scale, InteractionMode } from "../interfaces";
 import { SelectionAppearance } from "../list/resources";
 import {
   componentFocusable,
@@ -180,6 +180,13 @@ export class ListItem
    * @private
    */
   @property() selectionAppearance: SelectionAppearance = null;
+
+  /**
+   * Specifies the size of the component inherited from the parent `calcite-list`, defaults to `m`.
+   *
+   * @private
+   */
+  @property({ reflect: true }) scale: Scale = "m";
 
   /**
    * Specifies the selection mode - `"multiple"` (allow any number of selected items), `"single"` (allow one selected item), `"single-persist"` (allow one selected item and prevent de-selection), or `"none"` (no selected items).
@@ -703,7 +710,7 @@ export class ListItem
                 ? ICONS.unselectedMultiple
                 : ICONS.unselectedSingle
           }
-          scale="s"
+          scale={this.scale}
         />
       </div>
     );
@@ -731,6 +738,7 @@ export class ListItem
           oncalciteSortHandleOpen={this.handleSortHandleOpen}
           overlayPositioning="fixed"
           ref={this.setSortHandleEl}
+          scale={this.scale}
           setPosition={setPosition}
           setSize={setSize}
         />
@@ -751,7 +759,7 @@ export class ListItem
         onClick={this.handleToggleClick}
         title={tooltip}
       >
-        <calcite-icon icon={icon} key={icon} scale="s" />
+        <calcite-icon icon={icon} key={icon} scale={this.scale} />
       </div>
     ) : null;
   }
@@ -794,6 +802,7 @@ export class ListItem
             key="close-action"
             label={messages.close}
             onClick={this.handleCloseClick}
+            scale={this.scale}
             text={messages.close}
           />
         ) : null}

@@ -181,6 +181,12 @@ module.exports = {
       },
     },
     {
+      files: ["src/**/*"],
+      rules: {
+        "no-console": ["error"],
+      },
+    },
+    {
       extends: ["plugin:@typescript-eslint/disable-type-checked"],
       files: ["*.cjs"],
     },

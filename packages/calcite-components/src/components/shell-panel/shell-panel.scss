@@ -118,8 +118,21 @@
   }
 
   &.float-all {
+    block-size: calc(100% - 1rem);
     margin-block: 0.5rem;
     margin-inline: 0.5rem;
+  }
+}
+
+.float-all {
+  @apply rounded shadow-sm overflow-hidden;
+  ::slotted(calcite-panel),
+  ::slotted(calcite-flow),
+  ::slotted(calcite-flow-item) {
+  }
+  ::slotted(calcite-action-bar *) {
+    --calcite-action-corner-radius: var(--calcite-corner-radius-round) var(--calcite-corner-radius)
+      var(--calcite-corner-radius) var(--calcite-corner-radius-round);
   }
 }
 

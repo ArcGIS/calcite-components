@@ -150,4 +150,5 @@ ul:focus {
   line-height: var(--calcite-font-line-height-relative-snug);
 }
 
+@include hidden-item();
 @include text-highlight-item();

@@ -53,6 +53,13 @@ export class ComboboxItemGroup extends LitElement {
    */
   @property() scale: Scale = "m";
 
+  /**
+   * Specifies whether the user set the hidden attribute in the HTML
+   *
+   * @private
+   */
+  @property({ reflect: true }) hiddenItem = false;
+
   // #endregion
 
   // #region Lifecycle
